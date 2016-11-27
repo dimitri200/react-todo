@@ -1,0 +1,27 @@
+.todo {
+    align-items: center; // align vertically
+    cursor: pointer;
+    display: flex;
+    padding: 1rem;
+    transition: background .3s ease;
+
+    p {
+        margin: 0.6rem;
+    }
+
+    &:hover {  // same as .todo:hover
+        background: #edf9ed;
+        // background: #c5f6c5;
+    }
+}
+
+.todo__subtext {
+    color: #999;
+}
+
+.todo-completed {
+    p, .todo__subtext {
+        color: $light-color;
+        text-decoration: line-through;
+    }
+}
