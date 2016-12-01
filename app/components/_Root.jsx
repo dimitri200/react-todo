@@ -1,32 +1,41 @@
-var React = require('react');
-var uuid = require('node-uuid');
-// var moment = require('moment');
+import React from 'react';
+import uuid from 'node-uuid';
 
-var TodoAPI = require('TodoAPI');
-var TodoSearch = require('TodoSearch');
-var TodoList = require('TodoList');
-var TodoAdd = require('TodoAdd');
+import TodoAPI from 'TodoAPI';
+import TodoSearch from 'TodoSearch';
+import TodoList from 'TodoList';
+import TodoAdd from 'TodoAdd';
 
-var _Root = React.createClass({
-    getInitialState: function() {
-        return {
+
+class _Root extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
             searchText: '',
             todos: TodoAPI.getTodos()
         };
-    },
-    componentDidUpdate: function () {
-        TodoAPI.setTodos(this.state.todos)
-    },
 
-    onSearch: function(searchText, showAll) {
+        this.onSearch = this.onSearch.bind(this);
+        this.onToggle = this.onToggle.bind(this);
+        this.onTodoAdd = this.onTodoAdd.bind(this);
+        this.filterTodos = this.filterTodos.bind(this);
+    }
+
+    componentDidUpdate() {
+        TodoAPI.setTodos(this.state.todos)
+    }
+
+    onSearch (searchText, showAll) {
         this.setState({
             showAll,
             searchText: searchText.toLowerCase()
         });
-    },
+    }
 
-    onToggle: function (id) {
-        var updatedTodos = this.state.todos.map((todo) => {
+    onToggle (id) {
+        let updatedTodos = this.state.todos.map((todo) => {
             if (todo.id === id) {
                 todo.completed = !todo.completed;
             }
@@ -34,9 +43,9 @@ var _Root = React.createClass({
         });
 
         this.setState({todos: updatedTodos});
-    },
+    }
 
-    onTodoAdd: function(text) {
+    onTodoAdd (text) {
         this.setState({
             todos: [
                 ...this.state.todos,
@@ -47,12 +56,12 @@ var _Root = React.createClass({
                 }
             ]
         });
-    },
+    }
 
-    filterTodos: function() {
-        var {searchText, showAll, todos} = this.state;
+    filterTodos() {
+        let {searchText, showAll, todos} = this.state;
 
-        var filteredTodos = todos;
+        let filteredTodos = todos;
 
         // filter by showAll
         filteredTodos = filteredTodos.filter(todo => {
@@ -61,35 +70,30 @@ var _Root = React.createClass({
 
         // filter by searchText
         filteredTodos = filteredTodos.filter(todo => {
-            var todoText = todo.text.toLowerCase();
+            let todoText = todo.text.toLowerCase();
             return todoText.indexOf(searchText) > -1;
         });
 
         return filteredTodos;
-    },
+    }
 
-    render: function() {
-
-        var filteredTodos = this.filterTodos();
+    render () {
+        let filteredTodos = this.filterTodos();
         return (
-            <div>
-                <div className='container'>
-                    <div className='row'>
-                        <div className='col-xs-10 col-sm-9 col-md-7'>
-                            <h3 className='page-header'>React Todo App</h3>
-                            <ul className="list-group">
-                                <TodoSearch onSearch={this.onSearch}/>
-                                <TodoList todos={filteredTodos} onToggle={this.onToggle}/>
-                                <TodoAdd onTodoAdd={this.onTodoAdd}/>
-                            </ul>
-                        </div>
+            <div className='container'>
+                <div className='row'>
+                    <div className='col-xs-10 col-sm-9 col-md-7'>
+                        <h3 className='page-header'>React Todo App</h3>
+                        <ul className="list-group">
+                            <TodoSearch onSearch={this.onSearch}/>
+                            <TodoList todos={filteredTodos} onToggle={this.onToggle}/>
+                            <TodoAdd onTodoAdd={this.onTodoAdd}/>
+                        </ul>
                     </div>
                 </div>
-
             </div>
         );
     }
+}
 
-});
-
-module.exports = _Root;
+export default _Root;

@@ -1,11 +1,10 @@
-var React = require('react');
+import React from 'react';
 
-var Todo = React.createClass({
+class Todo extends React.Component {
+    render () {
+        let {id, text, completed, onToggle} = this.props;
 
-    render: function() {
-        var {id, text, completed, onToggle} = this.props;
-
-        var todoClassName = completed ? 'todo todo-completed list-group-item' : 'todo list-group-item';
+        let todoClassName = completed ? 'todo todo-completed list-group-item' : 'todo list-group-item';
 
         return (
             <div className={todoClassName} onClick={() => onToggle(id)}>
@@ -13,7 +12,6 @@ var Todo = React.createClass({
             </div>
         );
     }
+}
 
-});
-
-module.exports = Todo;
+export default Todo;

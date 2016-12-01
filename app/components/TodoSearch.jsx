@@ -1,18 +1,22 @@
-var React = require('react');
+import React from 'react';
 
-var TodoSearch = React.createClass({
 
-    onChange: function() {
-        var {onSearch} = this.props;
+class TodoSearch extends React.Component {
+    constructor () {
+        super();
+        this.onChange = this.onChange.bind(this);
+    }
 
-        var searchText = this.refs.search.value;
-        var showAll = this.refs.showAll.checked; // TRUE or FALSE
+    onChange() {
+        let {onSearch} = this.props;
+
+        let searchText = this.refs.search.value;
+        let showAll = this.refs.showAll.checked; // TRUE or FALSE
 
         onSearch(searchText, showAll);
-    },
+    }
 
-    render: function() {
-
+    render() {
         return (
             <div className='container__header'>
                 <div className='form-group has-success'>
@@ -27,6 +31,6 @@ var TodoSearch = React.createClass({
         );
     }
 
-});
+}
 
-module.exports = TodoSearch;
+export default TodoSearch;

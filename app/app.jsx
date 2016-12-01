@@ -1,9 +1,9 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var {Route, Router, IndexRoute, hashHistory, browserHistory} = require('react-router');
-// import {Route, Router, IndexRoute, hashHistory, browserHistory} from 'react-router';
+import React, { PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 
-var _Root = require('_Root');
+import _Root from '_Root';
+
+// import {Route, Router, IndexRoute, hashHistory, browserHistory} from 'react-router';
 
 // Load Foundation
 // replaced by sassLoader in webpack.config.js
@@ -15,7 +15,5 @@ var _Root = require('_Root');
 // Load css
 require('style!css!sass!appStyles');
 
-ReactDOM.render(
-    <_Root/>,
-    document.getElementById('app')
-);
+
+ReactDOM.render(<_Root/>,  document.getElementById('app'));

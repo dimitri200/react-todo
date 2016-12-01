@@ -1,20 +1,19 @@
-var React = require('react');
+import React from 'react';
 
-var Todo = require('Todo');
+import Todo from 'Todo';
 
-var TodoList = React.createClass({
+class TodoList extends React.Component {
+    render () {
+        let {todos, onToggle} = this.props;
 
-    render: function() {
-        var {todos, onToggle} = this.props;
-
-        var displayTodo = () => {
+        let displayTodo = () => {
             if (todos.length === 0) {
                 return <div className='container__message'>You've done it all!</div>;
             }
 
             return todos.map((todo, index) => {
                 return (
-                        <Todo key={index} {...todo} onToggle={onToggle}/>
+                    <Todo key={index} {...todo} onToggle={onToggle}/>
                 );
             });
         };
@@ -25,7 +24,6 @@ var TodoList = React.createClass({
             </div>
         );
     }
+}
 
-});
-
-module.exports = TodoList;
+export default TodoList;
